@@ -60,7 +60,7 @@ const getIOClient = async (kioskId) => {
 module.exports = {
     init: function () {
         const io = socket.getio();
-        io.on('connection', function (socket) {
+        io.on('connection', socket => {
             socket.on('initializing', async (kioskId) => {
                 const kiosk = await Kiosks.findOne({ where: { id: kioskId, status: ACTIVE_STATUS, useSocket: true } });
                 devices[kioskId] = socket.id;
@@ -73,9 +73,9 @@ module.exports = {
                     ip = socket.handshake.headers['x-forwarded-for'] || socket.handshake.address;
                     const mobileIps = MOBILE_IPS.split(';');
                     try {
-                        for (let i = 0; i < mobileIps.length; i++) {
-                            const length = mobileIps[i].length;
-                            if (ip.substring(0, length) === mobileIps[i]) {
+                        for (const mobileIp of mobileIps) {
+                            const length = mobileIp.length;
+                            if (ip.substring(0, length) === mobileIp) {
                                 isMobile = true;
                                 break;
                             }
@@ -90,7 +90,7 @@ module.exports = {
                 await Kiosks.update({ connected: true }, { where: { id: kioskId, status: ACTIVE_STATUS, useSocket: true } });
                 io.to(socket.id).emit('allowConnection', INTERVAL_TEMPERATURE, INTERVAL_DOOR);
             });
-            socket.on('temperature', async (obj) => {
+            socket.on('temperature', async obj => {
                 const kiosk = await Kiosks.findOne({ where: { id: obj.kioskId, status: ACTIVE_STATUS, useSocket: true } });
                 if (!kiosk) {
                     return false;
@@ -136,7 +136,7 @@ module.exports = {
             socket.emit('reinitialize');
         });
         const ioSocketTrafficSaving = socketTrafficSaving.getio();
-        ioSocketTrafficSaving.on('connection', function (socket) {
+        ioSocketTrafficSaving.on('connection', socket => {
             socket.on('initializing', async (kioskId) => {
                 const kiosk = await Kiosks.findOne({ where: { id: kioskId, status: ACTIVE_STATUS, useSocket: true } });
                 devices[kioskId] = socket.id;
@@ -149,9 +149,9 @@ module.exports = {
                     ip = socket.handshake.headers['x-forwarded-for'] || socket.handshake.address;
                     const mobileIps = MOBILE_IPS.split(';');
                     try {
-                        for (let i = 0; i < mobileIps.length; i++) {
-                            const length = mobileIps[i].length;
-                            if (ip.substring(0, length) === mobileIps[i]) {
+                        for (const mobileIp of mobileIps) {
+                            const length = mobileIp.length;
+                            if (ip.substring(0, length) === mobileIp) {
                                 isMobile = true;
                                 break;
                             }
@@ -166,7 +166,7 @@ module.exports = {
                 await Kiosks.update({ connected: true }, { where: { id: kioskId, status: ACTIVE_STATUS, useSocket: true } });
                 ioSocketTrafficSaving.to(socket.id).emit('allowConnection', INTERVAL_TEMPERATURE, INTERVAL_DOOR);
             });
-            socket.on('temperature', async (obj) => {
+            socket.on('temperature', async obj => {
                 const kiosk = await Kiosks.findOne({ where: { id: obj.kioskId, status: ACTIVE_STATUS, useSocket: true } });
                 if (!kiosk) {
                     return false;
@@ -201,7 +201,7 @@ module.exports = {
             socket.on('doorStatus', async (data, callback) => {
                 await handleLockStatus(data, callback);
             });
-            socket.on('disconnect', async function () {
+            socket.on('disconnect', async () => {
                 const currKioskId = Object.keys(devices).find(key => devices[key] === socket.id);
                 delete devices[currKioskId];
                 await connectionLogs.create(DISCONNECT, currKioskId);
@@ -256,16 +256,12 @@ module.exports = {
         }
     },
     allowConnection: async function (kioskId) {
-        const { io, useTrafficSaving } = await getIOClient(kioskId);
+        const { io } = await getIOClient(kioskId);
         const sessionID = devices[kioskId];
         if (sessionID) {
             await connectionLogs.create(CONNECTION, kioskId);
             await Kiosks.update({ connected: true }, { where: { id: kioskId } });
-            if (useTrafficSaving) {
-                io.to(sessionID).emit('allowConnection', INTERVAL_TEMPERATURE, INTERVAL_DOOR);
-            } else {
-                io.to(sessionID).emit('allowConnection', INTERVAL_TEMPERATURE, INTERVAL_DOOR);
-            }
+            io.to(sessionID).emit('allowConnection', INTERVAL_TEMPERATURE, INTERVAL_DOOR);
         }
     }
 };

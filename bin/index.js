@@ -39,16 +39,16 @@ Promise.all([models.sequelize.sync(), logModels.sequelize.sync()])
  * Normalize a port into a number, string, or false.
  */
 function normalizePort(val) {
-    let port = parseInt(val, 10);
+    const normPort = parseInt(val, 10);
 
-    if (isNaN(port)) {
+    if (isNaN(normPort)) {
         // named pipe
         return val;
     }
 
-    if (port >= 0) {
+    if (normPort >= 0) {
         // port number
-        return port;
+        return normPort;
     }
 
     return false;

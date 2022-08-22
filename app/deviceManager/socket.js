@@ -7,10 +7,7 @@ module.exports = {
         const isValid = (socket) => {
             const token = socket.handshake.auth.token;
             const secretFromPayload = utils.decryptStringWithRsaPrivateKey(token, privateKeyPath);
-            if (secret === secretFromPayload) {
-                return true;
-            }
-            return false;
+            return secret === secretFromPayload;
         };
         // start socket.io server and cache io value
         io = require('socket.io')(server, {
