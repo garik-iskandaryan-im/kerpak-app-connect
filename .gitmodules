@@ -1,0 +1,6 @@
+[submodule "app/models"]
+	path = app/models
+	url = https://github.com/InstigateMobile/kerpak-app-models.git
+[submodule "app/logsModels"]
+	path = app/logsModels
+	url = https://github.com/InstigateMobile/kerpak-app-logs-model.git
