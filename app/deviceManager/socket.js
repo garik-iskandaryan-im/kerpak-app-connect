@@ -11,7 +11,7 @@ module.exports = {
                 return true;
             }
             return false;
-        }
+        };
         // start socket.io server and cache io value
         io = require('socket.io')(server, {
             path: '/mysocket',
@@ -34,4 +34,4 @@ module.exports = {
         }
         return io;
     }
-}
+};

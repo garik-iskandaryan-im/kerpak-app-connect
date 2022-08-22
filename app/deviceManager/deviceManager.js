@@ -33,16 +33,16 @@ const openDoorPromise = (uniqueId) => new Promise((resolve, reject) => {
             } else if (doorStatus[uniqueId].action === 'responded') {
                 if (doorStatus[uniqueId].status) {
                     clearInterval(checkingInterval[uniqueId]);
-                    resolve({ success: true, message: 'Door successfully opened.' })
+                    resolve({ success: true, message: 'Door successfully opened.' });
                 } else {
                     clearInterval(checkingInterval[uniqueId]);
-                    reject({ success: false, message: doorStatus[uniqueId].error || 'Could not open door.' })
+                    reject({ success: false, message: doorStatus[uniqueId].error || 'Could not open door.' });
                 }
             }
         }, 100);
     } catch (err) {
         log.error(err, 'deviceManager::openDoorPromise::Important::possible memory leak');
-        reject({ success: false, message: 'Could not open door.' })
+        reject({ success: false, message: 'Could not open door.' });
     }
 });
 
@@ -55,7 +55,7 @@ const getIOClient = async (kioskId) => {
         io = socket.getio();
     }
     return { io: io, useTrafficSaving: useTrafficSaving, bluetoothUnlock };
-}
+};
 
 module.exports = {
     init: function () {
@@ -133,7 +133,7 @@ module.exports = {
                     await Kiosks.update({ connected: false }, { where: { id: currKioskId, status: ACTIVE_STATUS, useSocket: true } });
                 }
             });
-            socket.emit('reinitialize')
+            socket.emit('reinitialize');
         });
         const ioSocketTrafficSaving = socketTrafficSaving.getio();
         ioSocketTrafficSaving.on('connection', function (socket) {
@@ -209,7 +209,7 @@ module.exports = {
                     await Kiosks.update({ connected: false }, { where: { id: currKioskId, status: ACTIVE_STATUS, useSocket: true } });
                 }
             });
-            socket.emit('reinitialize')
+            socket.emit('reinitialize');
         });
     },
     openDoor: async function (kioskId, firebaseRegistrationToken) {
@@ -268,4 +268,4 @@ module.exports = {
             }
         }
     }
-}
+};

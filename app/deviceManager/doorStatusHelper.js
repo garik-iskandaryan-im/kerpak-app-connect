@@ -37,7 +37,7 @@ module.exports.handleLockStatus = async (data, callback) => {
             }
         }
         if (callback) {
-            callback(obj.logID);
+            callback();
         }
     } catch (err) {
         log.error(err, 'LockStatusLogs::handleLockStatus');

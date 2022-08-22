@@ -11,9 +11,9 @@ const compileTemperatureBodyError = (dateTime, error, errorMessage, temperature,
     if (!isIssue) {
         params.temperature = temperature;
     } else {
-        params.errorMessage = error? errorMessage : temperature;
+        params.errorMessage = error ? errorMessage : temperature;
     }
-    return pupa(template, {...params});
+    return pupa(template, { ...params });
 };
 
 const getEmailBody = (isIssue, kioskName, temperatureLogs, timezone) => {

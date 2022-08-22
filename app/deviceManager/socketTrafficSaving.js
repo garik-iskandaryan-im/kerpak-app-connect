@@ -11,7 +11,7 @@ module.exports = {
                 return true;
             }
             return false;
-        }
+        };
 
         // start socket.io server and cache io value
         ioSocketTrafficSaving = require('socket.io')(server, {
@@ -35,4 +35,4 @@ module.exports = {
         }
         return ioSocketTrafficSaving;
     }
-}
+};

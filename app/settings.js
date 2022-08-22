@@ -13,7 +13,7 @@ module.exports = {
         password: process.env.DATABASE_PASSWORD || 'root',
         logDBHost: process.env.LOG_DATABASE_HOST || 'localhost',
         logDBDialect: 'mysql',
-        logDBName: process.env.LOG_DATABASE_NAME|| 'kerpakLogs',
+        logDBName: process.env.LOG_DATABASE_NAME || 'kerpakLogs',
         logDBUsername: process.env.LOG_DATABASE_USERNAME || 'root',
         logDBPassword: process.env.LOG_DATABASE_PASSWORD || 'root',
     },

@@ -1,5 +1,5 @@
 module.exports = {
-    openDoor:{
+    openDoor: {
         type: 'object',
         properties: {
             kioskId: { type: 'number' },
@@ -8,7 +8,7 @@ module.exports = {
         required: ['kioskId'],
         additionalProperties: false
     },
-    allowConnection:{
+    allowConnection: {
         type: 'object',
         properties: {
             kioskId: { type: 'number' }
@@ -16,7 +16,7 @@ module.exports = {
         required: ['kioskId'],
         additionalProperties: false
     },
-    disallowConnection:{
+    disallowConnection: {
         type: 'object',
         properties: {
             kioskId: { type: 'number' }

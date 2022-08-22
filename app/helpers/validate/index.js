@@ -4,7 +4,7 @@ const AJV = require('ajv').default;
 const ajvFormats = require('ajv-formats');
 const ajvKeywords = require('ajv-keywords');
 
-const ajv = new AJV({coerceTypes: true, useDefaults: true});
+const ajv = new AJV({ coerceTypes: true, useDefaults: true });
 ajvFormats(ajv);
 ajvKeywords(ajv);
 /**

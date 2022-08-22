@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const { SES } = require('aws-sdk');
 const log = require('app/helpers/logger');
 const { s3: { KEY, SECRET, SES: { REGION, SOURCE } } } = require('app/settings');

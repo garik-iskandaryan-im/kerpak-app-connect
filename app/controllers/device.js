@@ -31,7 +31,7 @@ module.exports.allowConnection = async (req, res) => {
             return res.status(400).json({ success: false, message: 'validation error' });
         }
         const { kioskId } = payload;
-        await deviceManger.allowConnection(kioskId);;
+        await deviceManger.allowConnection(kioskId);
         return res.json({ success: true });
     } catch (error) {
         log.error(error, 'device::allowConnection');

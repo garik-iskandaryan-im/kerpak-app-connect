@@ -33,7 +33,7 @@ app.disable('x-powered-by');
 
 app.set('logger', log);
 
-app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cookieParser());
 
 //init logs
