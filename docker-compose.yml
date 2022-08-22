@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+   nginx:
+      build: ./nginx
+      restart: always
+      # uncomment network_mode variable to be able to run docker in localhost
+      network_mode: host
+      volumes:
+         - /opt/kerpak/logs/server:/usr/src/app/log
+         - /opt/kerpak/certs:/etc/nginx/certs
+   server:
+      build: .
+      restart: always
+      # uncomment network_mode variable to be able to run docker in localhost
+      network_mode: host
+      volumes:
+         - /opt/kerpak/logs/server:/usr/src/app/log
+         - /opt/kerpak/certs:/etc/nginx/certs
+         - /opt/kerpak/certs:/usr/src/app/certs
