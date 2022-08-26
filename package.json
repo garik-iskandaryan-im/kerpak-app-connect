@@ -1,5 +1,5 @@
 {
-  "name": "kerpak-app-server",
+  "name": "kerpak-app-connect",
   "version": "1.0.0",
   "description": "",
   "main": "bin/index.js",

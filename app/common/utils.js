@@ -7,7 +7,7 @@ const YEREVAN_TIME_ZONE = '+04:00';
 
 const collectDateString = (dateTime, format, timezone = YEREVAN_TIME_ZONE) => moment(dateTime).utcOffset(timezone).format(format).toString();
 
-const decryptStringWithRsaPrivateKey = function (toDecrypt, relativeOrAbsolutePathToPrivateKey) {
+const decryptStringWithRsaPrivateKey = (toDecrypt, relativeOrAbsolutePathToPrivateKey) => {
     const absolutePath = path.resolve(relativeOrAbsolutePathToPrivateKey);
     const privateKey = fs.readFileSync(absolutePath, 'utf8');
     const buffer = Buffer.from(toDecrypt, 'base64');
@@ -21,7 +21,7 @@ const decryptStringWithRsaPrivateKey = function (toDecrypt, relativeOrAbsolutePa
     return decrypted.toString('utf8');
 };
 
-const encryptStringWithRsaPublicKey = function (toEncrypt, relativeOrAbsolutePathToPublicKey) {
+const encryptStringWithRsaPublicKey = (toEncrypt, relativeOrAbsolutePathToPublicKey) => {
     const absolutePath = path.resolve(relativeOrAbsolutePathToPublicKey);
     const publicKey = fs.readFileSync(absolutePath, 'utf8');
     const buffer = Buffer.from(toEncrypt, 'utf8');
