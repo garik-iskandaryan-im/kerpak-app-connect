@@ -51,7 +51,6 @@ const getKOEmailsForTemperatureAlerts = async () => ({
 });
 
 module.exports = {
-    getSPUsersEmails,
     getSPUsersEmailsForTemperatureAlerts,
     getKOEmailsForTemperatureAlerts
 };
